@@ -1,37 +1,28 @@
-{% extends 'base.html' %}
-{% block title %} Sales {% endblock %}
-
-
+{% extends "base.html "%}
+{% block title %} Pay Salary {% endblock %}
 {% block content %}
-<style>
-    body {
-        background: white !important;
-    }
-</style>
-
 <div class="container">
     <div class="row">
         <div class="col-3"></div>
-        <div class="col-md-6">
+        <div class="col-6">
             <div class="white-bg p-4 pt-3 mb-5 mt-5 shadw">
-                <h2 class="text-center text-bolder">Add Sales</h2>
-                <small class="text-center"> fields marked (*) are mandatory </small>
+                <h2 class="text-center text-bolder">Pay Salary</h2>
+                
+                <small class="text-center">All fields with (*) are mandatory</small>
                 <hr>
-                {{ form.errors }}
+
+                <!-- {{ form.errors }} -->
                 <form method="POST" class="custom-form with-dropdown-choices"  action="." enctype="multipart/form-data">
                     {% csrf_token %}
 
                     {{ form }}
 
                     <div class="col-12">
-                        <input type="submit" class="btn btn-primary" value="Add Sales">
+                        <input type="submit" class="btn btn-primary" value="Pay Salary">
                     </div>
-
-                </form>
             </div>
         </div>
     </div>
 </div>
-
 
 {% endblock %}
