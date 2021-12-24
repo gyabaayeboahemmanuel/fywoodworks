@@ -73,13 +73,6 @@ class WoodSale(models.Model):
     date_sold = models.DateTimeField(auto_now_add= True)
     
 
-    def save(self, *args, **kwargs) -> None:
-        if self.log.quantity > self.quantity:
-            self.log.quantity = self.log.quantity - self.quantity
-            self.total_price = self.quantity * self.log.unit_price
-        super(WoodSale, self).save(*args, **kwargs)
-
-
 class Salary(models.Model):
     staff = models.ForeignKey(Staff, on_delete=CASCADE)
     amount_paid = models.IntegerField()
