@@ -30,5 +30,18 @@ def woodsales(request):
     
     return render(request, "post/woodsalesforms.html", {"form":form})
 
+
+def salary(request):
+    if request.method == "POST":
+        form = SalaryForms(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            #salaryforms = form.save(commit=False)
+            form.save()
+            messages.success(request, "Payment Complete")
+        else: 
+            messages.warning(request, "form data error, please try again")
+    else:
+        form =SalaryForms()
+    return render (request, "post/paysalaryform.html", {"form":form}) 
         
-    
+
