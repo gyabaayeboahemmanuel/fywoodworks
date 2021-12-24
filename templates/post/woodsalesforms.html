@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block title %} Sales {% endblock %}
 {% load static %}
 
@@ -21,9 +22,9 @@
                 <form method="POST" class="custom-form with-dropdown-choices"  action="." enctype="multipart/form-data">
                     {% csrf_token %}
 
-                    {{ form }}
+                    {{ form | crispy }}
 
-                    <div class="col-12">
+                    <div class="col-12 mt-3 pt-3">
                         <input type="submit" class="btn btn-primary" value="Add Sales">
                     </div>
 
