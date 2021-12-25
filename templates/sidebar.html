@@ -1,0 +1,68 @@
+<div class="sidebar">
+    <nav class="sidebar-nav">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'services:index' %}"><i class="icon-speedometer"></i> Dashboard</a>
+            </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-puzzle"></i> Machine Works</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:machine_work_list' %}">
+                            <i class="nav-icon icon-puzzle"></i> Machine Work List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:machinework' %}">
+                            <i class="nav-icon icon-puzzle"></i> Add Machine Work</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-puzzle"></i> General Expenses</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:general_expenses_list' %}">
+                            <i class="nav-icon icon-puzzle"></i> Expenses List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:generalexpenses' %}">
+                            <i class="nav-icon icon-puzzle"></i> Add Expenses</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-user"></i> Salary</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:salary_list' %}">
+                            <i class="nav-icon icon-puzzle"></i> Salary List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:salary' %}">
+                            <i class="nav-icon icon-puzzle"></i> Pay New Salary</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-user"></i> Wood From Bush</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:wood_from_bush_list' %}">
+                            <i class="nav-icon icon-puzzle"></i> Wood List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:woodfrombush' %}">
+                            <i class="nav-icon icon-puzzle"></i> Add Wood From Bush</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+
+</div>
+
