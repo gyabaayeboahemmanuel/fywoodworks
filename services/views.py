@@ -91,7 +91,6 @@ def general_expenses_list(request):
     }
     return render(request, "lists/general_expenses_list.html", context)
     
-@login_required
 def machinework(request): 
     if request.method == "POST":
         form = MachineWorkForms (data= request.POST, files=request.FILES)
