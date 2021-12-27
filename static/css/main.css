@@ -8,10 +8,9 @@
         text-decoration: none;
     }
 
-<<<<<<< HEAD
-    /* Card Styles */
 
     .card-sl {
+        margin-bottom: 20px;
         border-radius: 8px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
@@ -98,5 +97,3 @@
             box-shadow: 0 0 0 0 rgba(90, 153, 212, 0);
         }
     }
-=======
->>>>>>> 92c1cf0beabd9e74905287eedfa7f3e3e92304f4

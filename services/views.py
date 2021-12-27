@@ -97,7 +97,7 @@ def machinework(request):
         if form.is_valid ():
             form.save()
             messages.success(request, "Machine Work added")
-            return redirect("machinework/add")
+            return redirect("/machinework/add")
         else:
             messages.warning(request, "Form data error, check and try again")
     else: 
@@ -123,7 +123,7 @@ def woodfrombush (request):
         if form.is_valid():
             form.save()
             messages.success(request, "Wood from Bush Saved Successfully")
-            return redirect("woodfrombush/add")
+            return redirect("/woodfrombush/add")
         else: 
             messages.warning(request, "Form data Error, check and try again")
     else: 
@@ -148,7 +148,7 @@ def operator(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Operator saved successfully")
-            return redirect("operator/add")
+            return redirect("/operator/add")
         else:
             messages.warning (request, "Form data error, Check and try again")
     else:

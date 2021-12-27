@@ -1,94 +1,36 @@
-
-{%load static%}
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% block title %} Operators {% endblock %}
 
-<!DOCTYPE html>
 
-<html lang="en">
+{% block content %}
+<style>
+    body {
+        background: white !important;
+    }
+</style>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %} GEKY {% endblock %}</title>
-        <link rel="stylesheet" href="{% static 'css/main.css' %}">
-        <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
-       
-    
-        <!-- Icons -->
-        <link href="{% static 'vendors/css/font-awesome.min.css' %}" rel="stylesheet">
-        <link href="{% static 'vendors/css/simple-line-icons.min.css' %}" rel="stylesheet">
-    
-         <!-- Main styles for this application -->
-         <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    </head>
+<div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-md-6">
+            <h1>Staff Registration</h1>
+            <p class="text-muted">Enter Staff Details</p>
+          
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ user_form | crispy }}
+                {{ profile_form | crispy }}
 
-<body class="app flex-row align-items-center">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card-group">
-                    <div class="card p-4">
-                        <div class="card-body">
-                            <h1>Login</h1>
-                            <p class="text-muted">Sign In to your account</p>
-                          
-                            <form action="" method="POST">
-                                {% csrf_token %}
-                                {{ user_form | crispy }}
-                                {{ profile_form | crispy }}
-
-                                {% comment %}
-                                {% for field in forms %}
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="icon-user"></i>
-                                            </span>
-                                        </div>
-                                        {{ field }}
-                                    </div>
-                                {% endfor %}
-                                {% endcomment %}
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <input type="submit" class="btn btn-primary px-4" value="Login">
-                                    </div>
-                                    <div class="col-6 text-right">
-                                        <button class="btn btn-link px-0" type="button">Forgot password?</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                    <div class="col-12 mt-3 pt-3">
+                        <input type="submit" class="btn btn-primary" value="Employ">
                     </div>
-                    <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
-                        <div class="card-body text-center">
-                            <div>
-                                <h2>FY Funiture & Wood Works</h2>
-                                <p>This inventory managment system is aim to provide all the neccesary functionalities needed to keep track of the accounts and finances at the Saw Mill</p>
-                                <!-- <button class="btn btn-primary active mt-3" type="button">Register Now!</button> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="{% static 'css/mdb.min.js' %}"></script>
 
-    <!-- Custom scripts required by this view -->
-<script src="{% static 'js/views/main.js' %}"></script>
-
-    <!-- Bootstrap and necessary plugins -->
-<script src="{% static 'vendors/js/jquery.min.js' %}"></script>
-<script src="{% static 'vendors/js/popper.min.js' %}"></script>
-<script src="{% static 'vendors/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'vendors/js/pace.min.js' %}"></script>
-    <!-- CoreUI main scripts -->
-    <script src="{% static 'js/app.js' %}"></script>
-</body>
-
-</html>
-
+{% endblock %}
