@@ -46,6 +46,67 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-user"></i>Staff</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:staff_list' %}">
+                            <i class="nav-icon icon-puzzle"></i> Salary List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:register' %}">
+                            <i class="nav-icon icon-puzzle"></i> Add Staff</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-user"></i> Operators</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:operator_list' %}">
+                            <i class="nav-icon icon-puzzle"></i> Operators List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:operator' %}">
+                            <i class="nav-icon icon-puzzle"></i> Add Operator</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-user"></i> Furniture Inventory</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:salary_list' %}">
+                            <i class="nav-icon icon-puzzle"></i> Furniture Available</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:salary' %}">
+                            <i class="nav-icon icon-puzzle"></i> Add Furniture</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-user"></i> Furniture Sales</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:salary_list' %}">
+                            <i class="nav-icon icon-puzzle"></i> Sold Furniture List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:salary' %}">
+                            <i class="nav-icon icon-puzzle"></i> Sell Furniture</a>
+                    </li>
+                </ul>
+            </li>
+            
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
                     <i class="nav-icon icon-user"></i> Wood From Bush</a>

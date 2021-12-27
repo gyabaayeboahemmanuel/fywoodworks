@@ -27,14 +27,28 @@ MACHINE_WORK_CHOICES = (
      ("Saw","Saw"),
      ("Ripping", "Ripping"),
 )
-class Operator (models.Model): 
-    user = models.ForeignKey(User, on_delete= models.CASCADE)
-    name = models.CharField(max_length=100)
-    hometown = models.CharField(max_length=100)
-    phonenumber= models.CharField(max_length=10)
+# class Operator (models.Model): 
+#     user = models.ForeignKey(User, on_delete= models.CASCADE)
+#     name = models.CharField(max_length=100)
+#     hometown = models.CharField(max_length=100)
+#     phonenumber= models.CharField(max_length=10)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
+
+# Operator Models.
+class Operator(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    hometown = models.CharField(max_length=50)
+    phone_number= models.CharField(max_length=10)
+    date_created = models.DateTimeField(auto_now_add= True)
+
+    class Meta:
+        ordering = ("-first_name",)
+
+    def __str__(self) -> str:
+        return self.first_name + " " + self.last_name
         
 # Models for Works
 class MachineWork (models.Model):
@@ -106,3 +120,4 @@ class FurnitureSale (models.Model):
             self.furnitureInventory.quantity = self.furnitureInventory.quantity - self.quantity
             self.total_price = self.quantity * self.furnitureInventory.unit_price
         super(FurnitureSale, self).save(*args, **kwargs)
+

@@ -26,3 +26,8 @@ class WoodFromBushForms(forms.ModelForm):
     class Meta: 
         model = WoodFromBush
         fields = ("operator", "woodtype", "quantity", "price", "processed", )
+
+class OperatorForms(forms.ModelForm):
+    class Meta: 
+        model = Operator
+        fields = ("first_name", "last_name", "hometown", "phone_number", )

@@ -1,12 +1,127 @@
 {% extends 'base.html' %}
 
 {% block title %} HOMEPAGE {% endblock %}
-
+{%load static%}
 {% block content %}
 
  <div class="container">
-     <p>
-         This is the HOMEPAGE
-     </p>
+    <div class="container" style="margin-top:50px;">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card-sl">
+                    <div class="card-image">
+                        <img
+                            src=" {% static 'img/furniture works.png' %}" />
+                    </div>
+
+                    <a class="card-action" href="#"><i class="fa fa-plus"></i></a>
+                    <div class="card-heading">
+                        Furniture Works
+                    </div>
+                    <a href="#" class="card-button"> View</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-sl">
+                    <div class="card-image">
+                        <img
+                        src=" {% static 'img/furniture works.png' %}" />
+                    </div>
+
+                    <a class="card-action" href="#"><i class="fa fa-plus"></i></a>
+                    <div class="card-heading">
+                        Furniture Sales
+                    </div>
+                    <a href="#" class="card-button"> View</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-sl">
+                    <div class="card-image">
+                        <img
+                        src=" {% static 'img/machine works.jpg' %}" />
+                    </div>
+
+                    <a class="card-action" href="{% url 'services:machinework' %}"><i class="fa fa-plus"></i></a>
+                    <div class="card-heading">
+                        Machine Works
+                    </div>
+                    <a href="{% url 'services:machine_work_list' %}" class="card-button"> View</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-sl">
+                    <div class="card-image">
+                        <img
+                            src=" {% static 'img/salary.jpg' %}" />
+                    </div>
+
+                    <a class="card-action" href="{% url 'services:salary_list' %}"><i class="fa fa-plus"></i></a>
+                    <div class="card-heading">
+                       Salary
+                    </div>
+                    <a href="{% url 'services:salary' %}" class="card-button"> View</a>
+                </div>
+            </div>
+        </div>  
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card-sl">
+                    <div class="card-image">
+                        <img
+                            src="{% static 'img/logs.jpg'%}" />
+                    </div>
+
+                    <a class="card-action" href="{% url 'services:machinework' %}"><i class="fa fa-plus"></i></a>
+                    <div class="card-heading">
+                        Wood from Bush
+                    </div>
+                    <a href="{% url 'services:machine_work_list'%}" class="card-button"> View</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-sl">
+                    <div class="card-image">
+                        <img
+                            src="{% static 'img/operator.jpg'%}" />
+                    </div>
+
+                    <a class="card-action" href="{% url 'services:operator'%}"><i class="fa fa-plus"></i></a>
+                    <div class="card-heading">
+                        Operators
+                    </div>
+                    <a href="{% url 'services:operator_list'%}" class="card-button"> View</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-sl">
+                    <div class="card-image">
+                        <img
+                            src="{% static 'img/staff.jpg'%}" />
+                    </div>
+
+                    <a class="card-action" href="{% url 'services:register'%}"><i class="fa fa-plus"></i></a>
+                    <div class="card-heading">
+                        Staff
+                    </div>
+                    <a href="{%url 'services:staff_list'%}" class="card-button"> View</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-sl">
+                    <div class="card-image">
+                        <img
+                            src=" {% static 'img/salary.jpg' %}" />
+                    </div>
+
+                    <a class="card-action" href="{% url 'services:generalexpenses' %}"><i class="fa fa-plus"></i></a>
+                    <div class="card-heading">
+                       General Expenses
+                    </div>
+                    <a href="{% url 'services:general_expenses_list' %}" class="card-button"> View</a>
+                </div>
+            </div>
+        </div>  
  </div>
 {% endblock %}
