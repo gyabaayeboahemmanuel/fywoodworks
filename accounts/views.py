@@ -4,7 +4,10 @@ from .forms import *
 from django.contrib import messages
 import random
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from django.core.paginator import Paginator
+=======
+>>>>>>> 92c1cf0beabd9e74905287eedfa7f3e3e92304f4
 # Create your views here.
 
 @login_required
@@ -36,6 +39,7 @@ def register(request):
         "profile_form" : profile_form
         })
             
+<<<<<<< HEAD
 
   
 
@@ -50,3 +54,5 @@ def staff_list (request):
     }
     return render(request, "lists/staff_list.html", context)
 
+=======
+>>>>>>> 92c1cf0beabd9e74905287eedfa7f3e3e92304f4

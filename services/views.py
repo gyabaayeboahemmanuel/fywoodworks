@@ -117,8 +117,6 @@ def machine_work_list(request):
     }
     return render(request, "lists/machine_work_list.html", context)
 
-
-
 @login_required
 def woodfrombush (request): 
     if request.method == "POST":
