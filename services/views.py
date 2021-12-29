@@ -103,7 +103,7 @@ def machinework(request):
     else: 
         form = MachineWorkForms()
     return render (request, "post/machineworkforms.html", {"form" : form})
-
+  
 @login_required
 def machine_work_list(request):
     machine_works = MachineWork.objects.all()
@@ -144,7 +144,7 @@ def wood_from_bush_list(request):
 @login_required
 def operator(request):
     if request.method == "POST":
-        form = Operator(data= request.POST, files =request.FILES)
+        form = OperatorForms(data= request.POST, files =request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "Operator saved successfully")
@@ -152,8 +152,8 @@ def operator(request):
         else:
             messages.warning (request, "Form data error, Check and try again")
     else:
-         form = Operator()
-    return render(request, "post/operatorform.html", {"form" : form})
+        form = OperatorForms()
+    return render (request, "post/operatorform.html", {"form" : form})
 
 @login_required
 def operator_list (request):
