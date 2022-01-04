@@ -25,7 +25,20 @@ LOG_CHOICES = (
 MACHINE_WORK_CHOICES = (
      ("Planning", "Planning"),
      ("Saw","Saw"),
-     ("Ripping", "Ripping"),
+     ("Ripping 1X12 Board", "Ripping 1X12 Boards"),
+     ("2X6 & 2X8 wood", "2X6 & 2X8 wood"),
+     ("Beam 3X12", "Beam 3X12"),
+     ("Beam 4X12", "Beam 4X12"),
+     ("Wabire & Asemfra", "Wabire & Asemfra"),
+     ("Bed Machine", "Bed Machine"),
+     ("Door", "Door"),
+     ("Door Gate", "Door Gate"),
+     ("Ban-Saw", "Ban-Saw"),
+     ("Mono Desk", "Mono Desk"),
+     ("Door and Cramping", "Door and Cramping"),
+     ("Frame Plaining 3 in 1", "Frame Plaining 3 in 1"),
+     ("2 in 1 & Door Frame", "2 in 1 & Door Frame"),
+
 )
 # class Operator (models.Model): 
 #     user = models.ForeignKey(User, on_delete= models.CASCADE)
@@ -53,12 +66,11 @@ class Operator(models.Model):
 # Models for Works
 class MachineWork (models.Model):
     machine_work_type = models.CharField(choices=MACHINE_WORK_CHOICES, max_length=30)
-    description = models.CharField(max_length=200)
     amount = models.DecimalField(decimal_places=2, max_digits=9)
     date_recorded = models.DateTimeField(auto_now_add= True)
 
     def __str__(self):
-        return self.description
+        return self.machine_work_type
     def was_entered_today(self):
         return self.entry_date >= self.entry_date - datetime.timedelta
 
@@ -96,7 +108,6 @@ class GeneralExpence(models.Model):
     description = models.CharField(max_length=200)
     amount = models.DecimalField(decimal_places=2, max_digits=9)
     date_recorded = models.DateTimeField(auto_now_add= True)
-
 
 class FurnitureInventory (models.Model):
     item_name = models.CharField(max_length=100)

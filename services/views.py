@@ -8,7 +8,7 @@ from .forms import *
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Sum
 # Create your views here.
 @login_required
 def index(request):
@@ -87,6 +87,7 @@ def general_expenses_list(request):
     page = request.GET.get('page')
     paged_general_expenses = paginator.get_page(page)
     context = {
+        
         "generalexpenses": paged_general_expenses
     }
     return render(request, "lists/general_expenses_list.html", context)
@@ -108,11 +109,21 @@ def machinework(request):
 def machine_work_list(request):
     machine_works = MachineWork.objects.all()
 
+     #search codes
+    work_date = request.GET.get('work_date')
+    if work_date is not '' and work_date is not None:
+        machine_works = machine_works.filter(date_recorded__icontains = work_date)
+        machine_works_total = machine_works.aggregate(Total = Sum('amount',))
+    else:
+        machine_works_total = MachineWork.objects.aggregate(Total = Sum('amount',))  
+    
     paginator = Paginator(machine_works, 20)
     page = request.GET.get('page')
     paged_machine_work = paginator.get_page(page)
     context = {
-        "machine_works": paged_machine_work
+        "machine_works": paged_machine_work,
+        "machine_works_total": machine_works_total,
+        "work_date": work_date,
     }
     return render(request, "lists/machine_work_list.html", context)
 

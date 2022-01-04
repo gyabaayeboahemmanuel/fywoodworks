@@ -1,5 +1,5 @@
 from django.core.checks import messages
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .forms import *
 from django.contrib import messages
 import random
@@ -23,6 +23,7 @@ def register(request):
             profile.save()
 
             messages.success(request, 'user created')
+            return redirect("/staff/add/")
         else:
             messages.warning(request, "invalid data entry")
 

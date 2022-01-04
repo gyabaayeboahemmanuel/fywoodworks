@@ -19,7 +19,7 @@ class GeneralExpenseForms(forms.ModelForm):
 class MachineWorkForms(forms.ModelForm):
     class Meta: 
         model = MachineWork
-        fields = ("machine_work_type", "description", "amount",)
+        fields = ("machine_work_type", "amount",)
 
 
 class WoodFromBushForms(forms.ModelForm):
