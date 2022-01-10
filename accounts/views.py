@@ -1,10 +1,12 @@
 from django.core.checks import messages
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from .forms import *
 from django.contrib import messages
 import random
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.contrib.auth import get_user_model
+User = get_user_model()
 # Create your views here.
 
 @login_required
@@ -37,8 +39,6 @@ def register(request):
         "profile_form" : profile_form
         })
             
-  
-
 @login_required
 def staff_list (request):
     staff_list = Staff.objects.all()
@@ -50,3 +50,16 @@ def staff_list (request):
     }
     return render(request, "lists/staff_list.html", context)
 
+def delete_staff(request, id):
+    staff = get_object_or_404(User, id=id)
+    staff.delete()
+    return redirect("/staff/list/")
+
+def staff_detail(request, id):
+    user = get_object_or_404(User, id = id)
+
+    return render(request, "staff_detail.html",
+    {
+        "user": user,
+        #"staff": staff,
+    })

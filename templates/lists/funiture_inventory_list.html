@@ -7,7 +7,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> General Expenses List</div>
+                <i class="fa fa-align-justify"></i> Furniture Inventory List</div>
             <div class="card-body">
 
                 <table class="table table-responsive-sm table-bordered table-striped table-sm">
@@ -18,7 +18,7 @@
                                 <form class="card card-sm">
                                     <div class="card-body row no-gytters align-items-center">
                                         <div class="col">
-                                            <input type="date" name='date_recorded' class="form-control form-control-borderless" placeholder="Search for products">
+                                            <input type="text" name='item_name' class="form-control form-control-borderless" placeholder="Search for Furniture">
                                         </div>
                                         <div class="col-auto">
                                             <button class='btn btn-success' type='submit'>Search</button>
@@ -27,35 +27,38 @@
                                 </form>
                          
                   
-                    </tr>
-                    <tr>
-                       <th>DATE: {{ date_recorded}}</th>
-                       <th>TOTAL: {{ total_expenses.Total|floatformat:2 }} </th> 
-                    </tr>
-                
+                    </tr>                
                 </table>
 
                 <table class="table table-responsive-sm table-bordered table-striped table-sm">
                     <thead>
                         <tr>
                             <th>SL</th>
+                            <th>Item Name</th>
                             <th>Description</th>
-                            <th>Amount</th>
-                            <th>Date</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Unit Work Expense</th>
+                            <th>Total Work Expense</th>
+        
                         </tr>
                     </thead>
                     <tbody>
-                        {% for generalexpense in generalexpenses %}
+                        {% for furnitureinventory in furniture_list %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
-                                <td>{{ generalexpense.description }}</td>
-                                <td>{{ generalexpense.amount }}</td>
-                                <td>{{ generalexpense.date_recorded }}</td>
+                                <td>{{ furnitureinventory.item_name }}</td>
+                                <td>{{ furnitureinventory.description }}</td>
+                                <td>{{ furnitureinventory.quantity }}</td>
+                                <td>{{ furnitureinventory.unit_price }}</td>
+                                <td>{{ furnitureinventory.unit_expenses_on_work }}</td>
+                                <td>{{ total_expenses }}</td> 
+                                
                                 <td>
                                     <a href="">
                                         <button type="button" class="btn btn-info"><i class="fa fa-edit"></i></button>
                                     </a>
-                                    <a href="{% url 'services:delete_exepenses_view' generalexpense.id %} ">
+                                    <a href="{% url 'services:delete_furniture_view' furnitureinventory.id %} ">
                                         <button type="submit" class="btn btn-danger">X</button>
                                     </a>
                                     
@@ -71,19 +74,19 @@
 
 <div class="row">
     <div class="col-md-12">
-        {% if generalexpenses.has_other_pages %}
+        {% if furnitureinventorys.has_other_pages %}
             <ul class="pagination">
-                {% if generalexpenses.has_previous %}
+                {% if furnitureinventorys.has_previous %}
                     <li class="page-item">
-                        <a href="?page={{generalexpenses.previous_page_number}}" class="page-link">Prev</a>
+                        <a href="?page={{furnitureinventorys.previous_page_number}}" class="page-link">Prev</a>
                     </li>
                 {% else %}
                     <li class="page-item disabled">
                         <a class="page-link">Prev</a>
                     </li>
                 {% endif %}
-                {% for i in generalexpenses.paginator.page_range %}
-                    {% if generalexpenses.number == i %}
+                {% for i in furnitureinventorys.paginator.page_range %}
+                    {% if furnitureinventorys.number == i %}
                         <li class="page-item active">
                             <a class="page-link">{{ i }}</a>
                         </li>
@@ -93,9 +96,9 @@
                         </li>
                     {% endif %}
                 {% endfor %}
-                {% if generalexpenses.has_next %}
+                {% if furnitureinventorys.has_next %}
                     <li class="page-item">
-                        <a href="?page={{generalexpenses.next_page_number}}" class="page-link">Next</a>
+                        <a href="?page={{furnitureinventorys.next_page_number}}" class="page-link">Next</a>
                     </li>
                 {% else %}
                     <li class="page-item disabled">

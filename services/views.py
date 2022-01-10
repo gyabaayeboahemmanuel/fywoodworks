@@ -53,6 +53,10 @@ def salary(request):
         form =SalaryForms()
     return render (request, "post/paysalaryform.html", {"form":form})
 
+def delete_salary(request, id):
+    salary = get_object_or_404(Salary, id = id)
+    salary.delete()
+    return redirect ("/salary/list")
 @login_required
 def salary_list(request):
     salarys = Salary.objects.all()
@@ -79,16 +83,34 @@ def generalexpense(request):
         form = GeneralExpenseForms()
     return render (request, "post/generalexpensesforms.html", { "form" : form})
 
+def delete_exepenses_view(request, id):
+    expenses = get_object_or_404(GeneralExpence, id=id)
+    expenses.delete()
+    return redirect("/generalexpenses/list/")
+
 @login_required
 def general_expenses_list(request):
     generalexpenses = GeneralExpence.objects.all()
+
+    #search  functionality
+    date_recorded = request.GET.get('date_recorded')
+
+    if date_recorded is not '' and date_recorded is not None:
+        generalexpenses = generalexpenses.filter(date_recorded__icontains = date_recorded)
+        total_expenses = generalexpenses.aggregate(Total = Sum('amount'))
+    else: 
+        total_expenses = generalexpenses.aggregate(Total = Sum('amount'))
+        date_recorded = "Every Date"
+
 
     paginator = Paginator(generalexpenses, 20)
     page = request.GET.get('page')
     paged_general_expenses = paginator.get_page(page)
     context = {
         
-        "generalexpenses": paged_general_expenses
+        "generalexpenses": paged_general_expenses,
+        "total_expenses" : total_expenses,
+        "date_recorded": date_recorded
     }
     return render(request, "lists/general_expenses_list.html", context)
     
@@ -126,6 +148,11 @@ def machine_work_list(request):
         "work_date": work_date,
     }
     return render(request, "lists/machine_work_list.html", context)
+def delete_machine_work(request, id):
+    machine_work = get_object_or_404(MachineWork, id = id)
+    machine_work.delete()
+    return redirect("/machinework/list")
+
 
 @login_required
 def woodfrombush (request): 
@@ -144,13 +171,29 @@ def woodfrombush (request):
 @login_required
 def wood_from_bush_list(request):
     wood_from_bushs = WoodFromBush.objects.all()
+
+    #search codes
+    work_date = request.GET.get('work_date')
+    if work_date is not '' and work_date != None:
+        wood_from_bushs = wood_from_bushs.filter(date_purchased__icontains = work_date)
+        wood_from_bushs_total = wood_from_bushs.aggregate(Total = Sum('price'))
+    else: 
+        wood_from_bushs_total = wood_from_bushs.aggregate (Total = Sum('price'))
+
     paginator = Paginator(wood_from_bushs, 20)
     page = request.GET.get('page')
     paged_wood_from_bush = paginator.get_page(page)
     context = {
-        "woodfrombushs": paged_wood_from_bush
+        "woodfrombushs": paged_wood_from_bush,
+        "wood_from_bushs_total":wood_from_bushs_total
     }
     return render(request, "lists/wood_from_bush_list.html", context)
+
+def delete_wood_from_bush(request, id):
+    bushwood = get_object_or_404( WoodFromBush, id =id)
+    bushwood.delete()
+    return redirect("/woodfrombush/list/")
+
 
 @login_required
 def operator(request):
@@ -176,3 +219,48 @@ def operator_list (request):
         "operator_list": paged_operator
     }
     return render(request, "lists/operator_list.html", context)
+def delete_operator(request, id):
+    operator = get_object_or_404( Operator, id =id)
+    operator.delete()
+    return redirect("/operator/list/")
+
+@login_required
+def furniture_inventory(request):
+    if request.method == "POST":
+        form = FurnitureInventoryForms(data= request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Furniture Recorded")
+            return redirect("/furniture/list/")
+        else:
+            messages.warning(request, "Form data error, check and try aagain")
+    else: 
+        form = FurnitureInventoryForms()
+    return render (request, "post/furnitureinventoryform.html", { "form" : form})
+
+@login_required
+def furniture_list (request):
+    total_expenses = 0
+    furniture_list = FurnitureInventory.objects.all()
+ #search codes
+    item_name = request.GET.get('item_name')
+    if item_name is not '' and item_name is not None:
+        furniture_list = furniture_list.filter(item_name__icontains = item_name)
+   
+    for i in furniture_list:
+        total_expenses = i.unit_expenses_on_work * i.quantity
+    
+    paginator = Paginator(furniture_list, 20)
+
+    page = request.GET.get('page')
+    paged_furniture = paginator.get_page(page)
+    context = {
+        "furniture_list": paged_furniture,
+        "total_expenses": total_expenses
+    }
+    return render(request, "lists/funiture_inventory_list.html", context)
+
+def delete_furniture_view(request, id):
+    furniture_inventory = get_object_or_404( FurnitureInventory, id =id)
+    furniture_inventory.delete()
+    return redirect("/furniture/list/")

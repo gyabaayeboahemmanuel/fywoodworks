@@ -14,25 +14,11 @@
                             src=" {% static 'img/furniture works.png' %}" />
                     </div>
 
-                    <a class="card-action" href="#"><i class="fa fa-plus"></i></a>
+                    <a class="card-action" href="{%url 'services:furniture_inventory' %}"><i class="fa fa-plus"></i></a>
                     <div class="card-heading">
                         Furniture Works
                     </div>
-                    <a href="#" class="card-button"> View</a>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card-sl">
-                    <div class="card-image">
-                        <img
-                        src=" {% static 'img/furniture works.png' %}" />
-                    </div>
-
-                    <a class="card-action" href="#"><i class="fa fa-plus"></i></a>
-                    <div class="card-heading">
-                        Furniture Sales
-                    </div>
-                    <a href="#" class="card-button"> View</a>
+                    <a href="{%url 'services:furniture_list'%}" class="card-button"> View</a>
                 </div>
             </div>
             <div class="col-md-3">
@@ -63,9 +49,7 @@
                     <a href="{% url 'services:salary' %}" class="card-button"> View</a>
                 </div>
             </div>
-        </div>  
 
-        <div class="row">
             <div class="col-md-3">
                 <div class="card-sl">
                     <div class="card-image">
@@ -80,6 +64,10 @@
                     <a href="{% url 'services:wood_from_bush_list'%}" class="card-button"> View</a>
                 </div>
             </div>
+        </div>  
+
+        <div class="row">
+            
             <div class="col-md-3">
                 <div class="card-sl">
                     <div class="card-image">

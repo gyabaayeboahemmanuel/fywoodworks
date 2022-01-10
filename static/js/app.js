@@ -145,3 +145,4 @@ function init(url) {
   $('[rel="popover"],[data-rel="popover"],[data-toggle="popover"]').popover();
 
 }
+

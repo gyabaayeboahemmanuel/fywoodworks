@@ -112,9 +112,9 @@ class GeneralExpence(models.Model):
 class FurnitureInventory (models.Model):
     item_name = models.CharField(max_length=100)
     description = models.CharField(max_length=100, null= True, blank=True)
+    quantity = models.IntegerField()
     unit_price = models.DecimalField(decimal_places=2, max_digits=9)
     unit_expenses_on_work = models.DecimalField(decimal_places=2, max_digits=9)
-    quantity = models.IntegerField()
     date_made = models.DateTimeField(auto_now_add= True)
 
     def __str__(self):

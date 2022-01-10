@@ -30,12 +30,6 @@
                   
                     </tr>
                     <tr>
-                        <!-- <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control">
-                            <div class="input-group-addon">
-                                <span class="glyphicon glyphicon-th"></span>
-                            </div>
-                        </div> -->
                        <th>DATE: {{ work_date}}</th>
                        <th>TOTAL: {{ machine_works_total.Total|floatformat:2 }} </th> 
                     </tr>
@@ -62,7 +56,7 @@
                                     <a href="">
                                         <button type="button" class="btn btn-info"><i class="fa fa-edit"></i></button>
                                     </a>
-                                    <a href="">
+                                    <a href="{% url 'services:delete_machine_work' machine_work.id%}">
                                         <button type="button" class="btn btn-danger">X</button>
                                     </a>
                                 </td>

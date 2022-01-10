@@ -31,3 +31,8 @@ class OperatorForms(forms.ModelForm):
     class Meta: 
         model = Operator
         fields = ("first_name", "last_name", "hometown", "phone_number", )
+
+class FurnitureInventoryForms(forms.ModelForm):
+    class Meta:
+        model = FurnitureInventory
+        fields = ("item_name", "description", "quantity", "unit_price", "unit_expenses_on_work",)

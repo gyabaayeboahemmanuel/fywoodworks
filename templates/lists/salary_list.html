@@ -26,13 +26,11 @@
                                 <td>{{ salary.amount_paid }}</td>
                                 <td>{{ salary.date_paid }}</td>
                                 <td>
-                                    <a href="">
-                                        <button type="button" class="btn btn-primary">Details</button>
-                                    </a>
+                                
                                     <a href="">
                                         <button type="button" class="btn btn-info"><i class="fa fa-edit"></i></button>
                                     </a>
-                                    <a href="">
+                                    <a href="{% url 'services:delete_salary' salary.id%}">
                                         <button type="button" class="btn btn-danger">X</button>
                                     </a>
                                 </td>
