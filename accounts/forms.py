@@ -41,11 +41,11 @@ class StaffForm(forms.ModelForm):
     class Meta:
         model = Staff
         fields = (
-            "otherNames",
+            "other_names",
             "hometown",
-            "phoneNumber",
-            "emergencyContactPerson",
-            "emergencyContactNumber",
+            "phone_number",
+            "emergency_contact_person",
+            "emergency_contact_number",
             "picture",
         )
 

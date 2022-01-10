@@ -6,11 +6,11 @@ User = get_user_model()
 # Staff Models.
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete= models.CASCADE, related_name="staff")
-    otherNames = models.CharField(max_length=50)
+    other_names = models.CharField(max_length=50,  blank= True, default="")
     hometown = models.CharField(max_length=50)
-    phoneNumber= models.CharField(max_length=10)
-    emergencyContactPerson = models.CharField(max_length=50)
-    emergencyContactNumber = models.CharField(max_length=10)
+    phone_number= models.CharField(max_length=10)
+    emergency_contact_person = models.CharField(max_length=50)
+    emergency_contact_number = models.CharField(max_length=10)
     picture = models.ImageField(upload_to = "profile/")
     dateCreated = models.DateTimeField(auto_now_add= True)
 

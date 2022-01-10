@@ -16,14 +16,16 @@ STAFF DETAIL PAGE
                 <div class="text-center"> 
                     <img src="{{ user.staff.picture.url }}" width="100" class="rounded-circle" alt="not found"> 
                 </div>
-                <div class="text-center mt-3"> <span class="bg-secondary p-1 px-4 rounded text-white">Pro</span>
-                    <h5 class="mt-2 mb-0">{{ user.staff.first_name}} {{user.staff.last_name}} {{staff.otherNames }}</h5> <span>UI/UX Designer</span>
+                <div class="text-center mt-3"> <span class="bg-secondary p-1 px-4 rounded text-white">Staff</span>
+                    <h5 class="mt-2 mb-0">{{ user.firstname}} {{user.lastname}} {{user.staff.other_names }}</h5> <span>Home Town : {{user.staff.hometown}}</span>
                     <div class="px-4 mt-1">
-                        <p class="fonts">Phone Number :  {{ user.staff.phoneNumber }}</p>
+                        <p class="fonts">Phone Number :  {{ user.staff.phone_number }}</p>
+                        <p class="fonts">Emergency Contant Person:  {{ user.staff.emergency_contact_person }}</p>
+                        <p class="fonts">Emergency Contant Number :  {{ user.staff.emergency_contact_number }}</p>
                         <p class="fonts">Date Joined :  {{ user.staff.dateCreated }}</p>
                     </div>
                     
-                    <div class="buttons"> <a href="{% url 'services:delete_staff' user.staff.id %} ">
+                    <div class="buttons"> <a href="{% url 'services:delete_staff' user.id %} ">
                         <button type="submit" class="btn btn-danger">Delete Staff</button>
                    </a> </div>
                 </div>

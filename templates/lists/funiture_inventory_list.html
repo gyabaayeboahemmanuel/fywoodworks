@@ -18,19 +18,21 @@
                                 <form class="card card-sm">
                                     <div class="card-body row no-gytters align-items-center">
                                         <div class="col">
-                                            <input type="text" name='item_name' class="form-control form-control-borderless" placeholder="Search for Furniture">
+                                            <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
+                                            <input type="text" id="myInput"onkeyup="myFunction()" name='item_name' class="form-control form-control-borderless" placeholder="Search for Furniture">
                                         </div>
-                                        <div class="col-auto">
-                                            <button class='btn btn-success' type='submit'>Search</button>
-                                        </div>
+                                        
                                     </div>
                                 </form>
+                                <div class="col-auto">
+                                    <button class='btn btn-success'style="align-items-right" type='button'>Make Purchase</button>
+                                </div>
                          
                   
                     </tr>                
                 </table>
 
-                <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                <table id="myTable" class="table table-responsive-sm table-bordered table-striped table-sm">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -43,7 +45,7 @@
         
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="myTB">
                         {% for furnitureinventory in furniture_list %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
@@ -109,4 +111,28 @@
         {% endif %}
     </div>
 </div>
+
+<script>
+    function myFunction() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    </script>
 {% endblock %}
