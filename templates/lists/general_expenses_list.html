@@ -28,6 +28,13 @@
                          
                   
                     </tr>
+                    <div class="row">
+                        <div class="col-10 pt-2 mb-2 text-center d-flex flex-row justify-content-between">
+                            <!--<h4 class="display-4">PRODUCTS</h2>-->
+                            <a href="{% url 'services:generalexpenses' %}" id="purchase-link" class="btn btn-lg btn-warning">New Expenses</a>
+                        </div>
+                        
+                    </div>   
                     <tr>
                        <th>DATE: {{ date_recorded}}</th>
                        <th>TOTAL: {{ total_expenses.Total|floatformat:2 }} </th> 
@@ -52,7 +59,7 @@
                                 <td>{{ generalexpense.amount }}</td>
                                 <td>{{ generalexpense.date_recorded }}</td>
                                 <td>
-                                    <a href="">
+                                    <a href="{% url 'services:edit_expense' generalexpense.id %}">
                                         <button type="button" class="btn btn-info"><i class="fa fa-edit"></i></button>
                                     </a>
                                     <a href="{% url 'services:delete_exepenses_view' generalexpense.id %} ">

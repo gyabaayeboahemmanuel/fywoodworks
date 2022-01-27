@@ -7,23 +7,43 @@ from django.contrib.auth import get_user_model
 from accounts.models import Staff
 
 User = get_user_model()
-LOG_CHOICES = (
-    ("2 X 4", "2 X 4"),
-    ("2 X 6", "2 X 6"),
-    ("2 X 8", "2 X 8"),
-    ("2 X 2", "2 X 2"),
-    ("1 X 9", "1 X 9"),
-    ("1 X 10", "1 X 10"),
-    ("1 X 12", "1 X 12"),
-    ("Wawa Board", "Wawa Board"),
-    ("Nyamedua","Nyamedua"),
-    ("Saba", "Saba"),
+WOOD_FROM_BUSH_CHOICES = (
+    ("2 X 8 - Red Wood", "2 X 8 - Red Wood"),
+    ("2 X 8 - Ky3nky3n", "2 X 8 - Ky3nky3n"),
+    ("2 X 8 - Oframe", "2 X 8 - Oframe"),
+    ("2 X 8 - Odum", "2 X 8 - Odum"),
+    ("2 X 8 - Saiba", "2 X 8 - Saiba"),
+    ("2 X 8 - Wawa", "2 X 8- Wawa"),
+    ("2 X 6 - Red Wood", "2 X 6 - Red Wood"),
+    ("2 X 6 - Ky3nky3n", "2 X 6 - Ky3nky3n"),
+    ("2 X 6 - Oframe", "2 X 6 - Oframe"),
+    ("2 X 6 - Odum", "2 X 6 - Odum"),
+    ("2 X 6 - Saiba", "2 X 6 - Saiba"),
+    ("2 X 6 - Wawa", "2 X 6- Wawa"),
+    ("1 X 9 - Ky3nky3n", "1 X 9 - Ky3nky3n"),
+    ("1 X 9 - Red Wood", "1 X 9 - Red Wood"),
+    ("1 X 9 - Oframe", "1 X 9 - Oframe"),
+    ("1 X 9 - Odum", "1 X 9 - Odum"),
+    ("1 X 9 - Saiba", "1 X 9 - Saiba"),
+    ("1 X 9 - Wawa", "1 X 9- Wawa"),
+    ("1 X 10 - Ky3nky3n", "1 X 10 - Ky3nky3n"),
+    ("1 X 10 - Red Wood", "1 X 10 - Red Wood"),
+    ("1 X 10 - Oframe", "1 X 10 - Oframe"),
+    ("1 X 10 - Odum", "1 X 10 - Odum"),
+    ("1 X 10 - Saiba", "1 X 10 - Saiba"),
+    ("1 X 10 - Wawa", "1 X 10- Wawa"),
+    ("1 X 12 - Ky3nky3n", "1 X 12 - Ky3nky3n"),
+    ("1 X 12 - Red Wood", "1 X 12 - Red Wood"),
+    ("1 X 12 - Oframe", "1 X 12 - Oframe"),
+    ("1 X 12 - Odum", "1 X 12 - Odum"),
+    ("1 X 12 - Saiba", "1 X 12 - Saiba"),
+    ("1 X 12 - Wawa", "1 X 12- Wawa"),
     ("Ceiling Buttons", "Ceiling Buttons"),
     
 )
 
 MACHINE_WORK_CHOICES = (
-     ("Planning", "Planning"),
+     ("Planing", "Planing"),
      ("Saw","Saw"),
      ("Ripping 1X12 Board", "Ripping 1X12 Boards"),
      ("2X6 & 2X8 wood", "2X6 & 2X8 wood"),
@@ -79,29 +99,46 @@ class MachineWork (models.Model):
 
 class WoodFromBush(models.Model):
     operator = models.ForeignKey(Operator, on_delete=models.CASCADE)
-    woodtype = models.CharField(max_length=200)
+   # woodtype = models.CharField(max_length=200)
+    description = models.CharField(choices =WOOD_FROM_BUSH_CHOICES, max_length=30 )
     quantity = models.IntegerField()
     price = models.DecimalField(decimal_places=2, max_digits=9 )
-    processed = models.BooleanField(default=False)
+    sell_price = models.DecimalField(decimal_places=2, max_digits=9 )
     date_purchased = models.DateTimeField(auto_now_add= True)
+    def __str__(self):
+        return self.description + " || " + str(self.quantity)
 
-class Log(models.Model):
-    wood_from_bush = models.ForeignKey(WoodFromBush, on_delete=models.CASCADE)
-    log_type = models.CharField(choices=LOG_CHOICES, max_length=30)
-    quantity = models.IntegerField()
-    unit_price = models.DecimalField(decimal_places=2, max_digits= 9)
+# class Log(models.Model):
+#     wood_from_bush = models.ForeignKey(WoodFromBush, on_delete=models.CASCADE)
+#     log_type = models.CharField(choices=LOG_CHOICES, max_length=30)
+#     quantity = models.IntegerField()
+#     unit_price = models.DecimalField(decimal_places=2, max_digits= 9)
 
 
 class WoodSale(models.Model):
-    log = models.ForeignKey(Log, on_delete= models.CASCADE)
-    quantity = models.IntegerField()
-    total_price = models.DecimalField(decimal_places=2, max_digits= 9, null=True, blank=True)
+    # customer = models.CharField(max_length = 100)
+    total_price = models.DecimalField(decimal_places=2, max_digits= 9, default=0.0)
     date_sold = models.DateTimeField(auto_now_add= True)
-    
+    # def __str__(self):
+    #     return self.total_price
+
+class WoodItemSale(models.Model):
+    woodfrombush = models.ForeignKey(WoodFromBush, on_delete= models.CASCADE)
+    woodsale = models.ForeignKey(WoodSale, verbose_name=("woodsale"), on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    total_amount = models.DecimalField(decimal_places=2, max_digits=9)
+  
+    def __str__(self):
+        return self.woodfrombush.description
+
+    def save (self, *args, **kwargs):
+        self.woodfrombush.quantity = int(self.woodfrombush.quantity)- int(self.quantity)
+        self.woodfrombush.save()
+        super(WoodItemSale, self).save(*args, **kwargs)
 
 class Salary(models.Model):
     staff = models.ForeignKey(Staff, on_delete=CASCADE)
-    amount_paid = models.IntegerField()
+    amount_paid = models.DecimalField(decimal_places=2, max_digits= 9)
     date_paid = models.DateTimeField(auto_now_add= True)
 
 class GeneralExpence(models.Model):
@@ -120,15 +157,36 @@ class FurnitureInventory (models.Model):
     def __str__(self):
         return self.item_name + " " + str(self.quantity)
 
-class FurnitureSale (models.Model):
-    furnitureInventory = models.ForeignKey(FurnitureInventory, on_delete=CASCADE)
-    quantity = models.IntegerField()
-    total_price = models.DecimalField(decimal_places=2, max_digits=9)
+class FurniturePurchase (models.Model):
+    total_purchase = models.DecimalField(decimal_places=2, max_digits=9, default=0.0)
     date_sold = models.DateTimeField(auto_now_add= True)
 
-    def save(self, *args, **kwargs) -> None:
+    """ def save(self, *args, **kwargs) -> None:
         if self.furnitureInventory.quantity > self.quantity:
             self.furnitureInventory.quantity = self.furnitureInventory.quantity - self.quantity
             self.total_price = self.quantity * self.furnitureInventory.unit_price
-        super(FurnitureSale, self).save(*args, **kwargs)
+        super(FurniturePurchase, self).save(*args, **kwargs)
+ """
+class FurnitureItemPurchase (models.Model):
+    furniture = models.ForeignKey(FurnitureInventory,  related_name="furniture", on_delete=CASCADE)
+    purchase = models.ForeignKey(FurniturePurchase, related_name="purchase" , on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    total_amount = models.DecimalField(decimal_places=2, max_digits=10)
+    date = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ('-date',)
+
+    def save(self, *args, **kwargs):
+        self.furniture.quantity = int(self.furniture.quantity) - int(self.quantity)
+        self.furniture.save()
+        super(FurnitureItemPurchase, self).save(*args, **kwargs)
+
+class FurnitureSupply(models.Model):
+    furniture = models.ForeignKey(FurnitureInventory,  related_name="furnituresupply", on_delete=CASCADE)
+    quantity = models.PositiveIntegerField()
+
+    def save(self, *args, **kwargs):
+        self.furniture.quantity = self.furniture.quantity + self.quantity
+        self.furniture.save()
+        super(FurnitureSupply, self).save(*args, **kwargs)

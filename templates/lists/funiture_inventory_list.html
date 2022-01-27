@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} General Expenses {% endblock %}
+{% block title %} Furniture Inventory {% endblock %}
 
 {% block content %}
 
@@ -24,11 +24,21 @@
                                         
                                     </div>
                                 </form>
-                                <div class="col-auto">
-                                    <button class='btn btn-success'style="align-items-right" type='button'>Make Purchase</button>
-                                </div>
-                         
-                  
+
+                                <div class="row">
+                                    <div class="col-10 pt-2 mb-2 text-center d-flex flex-row justify-content-between">
+                                        <!--<h4 class="display-4">PRODUCTS</h2>-->
+                                        <a href="#" id="purchase-link" class="btn btn-lg btn-warning">New Purchase</a>
+                                    </div>
+
+                            
+                                    <div class="col-2 pt-2 mb-2 text-center d-flex flex-row justify-content-between">
+                                        <!--<h4 class="display-4">PRODUCTS</h2>-->
+                                            <a href="#" class="link btn btn-danger" id="supply-link" > Add Supply
+                                            </a>
+                                    </div>
+                                    
+                                </div>                                        
                     </tr>                
                 </table>
 
@@ -40,9 +50,10 @@
                             <th>Description</th>
                             <th>Quantity</th>
                             <th>Unit Price</th>
+                            <th>Total Price</th>
                             <th>Unit Work Expense</th>
                             <th>Total Work Expense</th>
-        
+                            <th>Balance/Profit</th>
                         </tr>
                     </thead>
                     <tbody id="myTB">
@@ -53,14 +64,16 @@
                                 <td>{{ furnitureinventory.description }}</td>
                                 <td>{{ furnitureinventory.quantity }}</td>
                                 <td>{{ furnitureinventory.unit_price }}</td>
+                                <td>{{ total_price}}</td>
                                 <td>{{ furnitureinventory.unit_expenses_on_work }}</td>
-                                <td>{{ total_expenses }}</td> 
+                                <td>{{ total_expenses }}</td>
+                                <td>{{ balance}}</td>
                                 
                                 <td>
                                     <a href="">
                                         <button type="button" class="btn btn-info"><i class="fa fa-edit"></i></button>
                                     </a>
-                                    <a href="{% url 'services:delete_furniture_view' furnitureinventory.id %} ">
+                                    <a href="#' furnitureinventory.id %} ">
                                         <button type="submit" class="btn btn-danger">X</button>
                                     </a>
                                     
@@ -85,6 +98,7 @@
                 {% else %}
                     <li class="page-item disabled">
                         <a class="page-link">Prev</a>
+
                     </li>
                 {% endif %}
                 {% for i in furnitureinventorys.paginator.page_range %}
@@ -112,6 +126,22 @@
     </div>
 </div>
 
+
+
+<div class="myoverlay full-screen" id="purchase-view">
+    <i class="myclose btn btn-danger">X</i>
+    <div class="container">
+        {% include 'add_purchase.html' %}
+    </div>
+</div>
+
+<div class="myoverlay full-screen" id="supply-view">
+    <i class="myclose btn btn-danger">X</i>
+    <div class="container">
+        {% include 'add_furnituresupply.html' %}
+    </div>
+</div>
+
 <script>
     function myFunction() {
       // Declare variables
@@ -134,5 +164,22 @@
         }
       }
     }
+    </script>
+
+    <script async>
+
+        document.querySelector("#purchase-link").addEventListener("click", function (e) {
+            document.querySelector("#purchase-view").classList.toggle("show");
+        });
+        document.querySelector("#supply-link").addEventListener("click", function (e) {
+            document.querySelector("#supply-view").classList.toggle("show");
+        });
+    
+        let closes = document.getElementsByClassName("myclose");
+        for (let i = 0; i < closes.length; i++) {
+            closes[i].addEventListener('click', function (e) {
+                this.parentNode.classList.toggle("show");
+            });
+        }
     </script>
 {% endblock %}

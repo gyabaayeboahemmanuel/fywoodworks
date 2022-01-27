@@ -110,6 +110,20 @@
                     <a href="{% url 'services:general_expenses_list' %}" class="card-button"> View</a>
                 </div>
             </div>
+
+            <div class="col-md-3">
+                <div class="card-sl">
+                    <div class="card-image">
+                        <img
+                            src=" {% static 'img/salary.jpg' %}" />
+                    </div>
+
+                    <div class="card-heading">
+                       Summary
+                    </div>
+                    <a href="{% url 'services:summary' %}" class="card-button"> View</a>
+                </div>
+            </div>
         </div>  
  </div>
 {% endblock %}

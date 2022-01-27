@@ -26,9 +26,16 @@
                                         </div>
                                     </div>
                                 </form>
-                         
-                  
                     </tr>
+
+                    <div class="row">
+                        <div class="col-10 pt-2 mb-2 text-center d-flex flex-row justify-content-between">
+                            <!--<h4 class="display-4">PRODUCTS</h2>-->
+                            <a  href="{% url 'services:machinework' %}" id="purchase-link" class="btn btn-lg btn-warning">New Machine Work</a>
+                        </div>
+                        
+                    </div>  
+
                     <tr>
                        <th>DATE: {{ work_date}}</th>
                        <th>TOTAL: {{ machine_works_total.Total|floatformat:2 }} </th> 

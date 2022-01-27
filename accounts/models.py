@@ -6,7 +6,6 @@ User = get_user_model()
 # Staff Models.
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete= models.CASCADE, related_name="staff")
-    other_names = models.CharField(max_length=50,  blank= True, default="")
     hometown = models.CharField(max_length=50)
     phone_number= models.CharField(max_length=10)
     emergency_contact_person = models.CharField(max_length=50)
@@ -19,4 +18,4 @@ class Staff(models.Model):
 
 
     def __str__(self) -> str:
-        return self.user.username + " " + self.otherNames
+        return self.user.first_name  + self.user.last_name

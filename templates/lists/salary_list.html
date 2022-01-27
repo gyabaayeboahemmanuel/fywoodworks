@@ -9,6 +9,32 @@
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Salary List</div>
             <div class="card-body">
+                
+                <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                    <tr>
+                                    <!-- Search Functionality -->
+                      
+                          
+                                <form class="card card-sm">
+                                    <div class="card-body row no-gytters align-items-center">
+                                        <div class="col">
+                                            <input type="date" name='date_recorded' class="form-control form-control-borderless" placeholder="Search for products">
+                                        </div>
+                                        <div class="col-auto">
+                                            <button class='btn btn-success' type='submit'>Search</button>
+                                        </div>
+                                    </div>
+                                </form>
+                         
+                  
+                    </tr>
+                    <tr>
+                       <th>DATE: {{ date_recorded}}</th>
+                       <th>TOTAL: {{ total_salary.Total|floatformat:2 }} </th> 
+                    </tr>
+                
+                </table>
+
                 <table class="table table-responsive-sm table-bordered table-striped table-sm">
                     <thead>
                         <tr>

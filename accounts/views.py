@@ -55,6 +55,41 @@ def delete_staff(request, id):
     staff.delete()
     return redirect("/staff/list/")
 
+
+@login_required
+def edit_staff(request, pk):
+    userform = get_object_or_404(User, pk=pk)
+    userprofileform = get_object_or_404(Staff, pk=pk)
+    if request.method == "POST":
+        user_form = UserForm(data=request.POST, files=request.FILES, instance = userform)
+        profile_form = StaffForm(data=request.POST, files=request.FILES, instance = userprofileform)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save(commit=False)
+            profile = profile_form.save(commit=False)
+            user.username = user.first_name + str(random.randint(0, 1000))
+            user.password = "something.random_here"
+            user.password2 = "something.random_here"
+            user.save()
+            profile.user = user
+            profile.save()
+
+            messages.success(request, 'user created')
+            return redirect("/staff/add/")
+        else:
+            messages.warning(request, "invalid data entry")
+
+    else:
+        user_form = UserForm(instance = userform)
+        profile_form = StaffForm(isntance = userprofileform)
+
+    return render(request, 'registration/register.html', 
+        {
+        "user_form": user_form,
+        "profile_form" : profile_form
+        })
+           
+    
+
 def staff_detail(request, id):
     user = get_object_or_404(User, id = id)
 

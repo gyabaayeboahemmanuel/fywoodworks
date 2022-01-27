@@ -79,16 +79,31 @@
 
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    <i class="nav-icon icon-layers "></i> Furniture Inventory</a>
+                    <i class="nav-icon icon-layers "></i>Furniture Inventory</a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'services:furniture_list' %}">
-                            <i class="nav-icon icon-login"></i><i class="fas fa-couch"></i>Furniture List</a>
+                            <i class="nav-icon icon-login"></i><i class="fas fa-couch"></i>Furniture Stock List</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:furniture_list' %}">
+                            <i class="nav-icon icon-login"></i><i class="fas fa-couch"></i>Furniture Purchases</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"href="{%url 'services:furniture_inventory'%}">
-                            <i class="icon-plus"></i> Add Furniture</a>
+                            <i class="icon-plus"></i>Furniture Supply</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"href="{%url 'services:furniture_inventory'%}">
+                            <i class="icon-plus"></i>Add Furniture</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"href="{%url 'services:furniture_inventory'%}">
+                            <i class="icon-plus"></i>Add Supply</a>
+                    </li>
+                    
                 </ul>
             </li>
             
@@ -99,6 +114,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'services:wood_from_bush_list' %}">
                             <i class="nav-icon icon-puzzle"></i> Wood List</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services:wood_from_bush_list' %}">
+                            <i class="nav-icon icon-puzzle"></i> Wood Sales</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'services:woodfrombush' %}">
