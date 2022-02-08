@@ -33,7 +33,7 @@
                                         <div class="col-2 pt-2 mb-2 text-center d-flex flex-row justify-content-between">
                                             <!--<h4 class="display-4">PRODUCTS</h2>-->
                                                
-                                                <a href="{% url 'services:woodfrombush' %}" class="link btn btn-danger" id="supply-link" > Add Supply
+                                                <a href="{% url 'services:woodfrombush' %}" class="link btn btn-danger" id="supply-link" > Add Wood From Bush
                                                 </a>
                                         </div>
                                         
@@ -41,7 +41,7 @@
                     </tr>
                     <tr>
                        <th>DATE: {{ work_date}}</th>
-                       <th>TOTAL: {{ wood_from_bushs_total.Total|floatformat:2 }} </th> 
+                       <th>TOTAL: {{ wood_from_bushs_total|floatformat:2 }} </th> 
                     </tr>
                 
                 </table>
@@ -51,8 +51,9 @@
                             <th>SL</th>
                             <th>Description</th>
                             <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total</th>
+                            <th>Cost Price</th>
+                            <th>Selling Price</th>
+                            <th>Total Wood Price</th>
                             <th>Name of Operator</th>
                             <th>Date Purchased</th>
                         </tr>
@@ -63,9 +64,9 @@
                                 <td>{{ forloop.counter }}</td>
                                 <td>{{ woodfrombush.description}}</td>
                                 <td>{{ woodfrombush.quantity }}</td>
-                                <td>{{ woodfrombush.price }}</td>
-                              
-                                <td>{{ total_wood_price }}</td>
+                                <td>{{ woodfrombush.price }}</td>    
+                                <td>{{ woodfrombush.sell_price }}</td>       
+                                <td>{{ woodfrombush.total_wood_price }}</td>
                                 <td>{{ woodfrombush.operator }}</td>
                                 <td>{{ woodfrombush.date_purchased }}</td> 
                                 <td>
@@ -76,6 +77,8 @@
                                 </td>
                             </tr>
                         {% endfor %}
+
+                        {{balance}} dssdf
                     </tbody>
                 </table>
             </div>
@@ -123,7 +126,7 @@
 
 
 <div class="myoverlay full-screen" id="purchase-view">
-    <i class="myclose btn btn-danger">X</i>
+    <i class="myclose btn btn-danger" style="margin-top:80px;">X</i>
     <div class="container">
         {% include 'add_wood_sale.html' %}
     </div>

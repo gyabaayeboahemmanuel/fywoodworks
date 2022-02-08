@@ -25,7 +25,7 @@ def register(request):
             profile.save()
 
             messages.success(request, 'user created')
-            return redirect("/staff/add/")
+            return redirect("/staff/list/")
         else:
             messages.warning(request, "invalid data entry")
 
@@ -74,7 +74,7 @@ def edit_staff(request, pk):
             profile.save()
 
             messages.success(request, 'user created')
-            return redirect("/staff/add/")
+            return redirect("/staff/list/")
         else:
             messages.warning(request, "invalid data entry")
 

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Summary {% endblock %}
+{% block title %} Furniture Sold {% endblock %}
 
 {% block content %}
 
@@ -7,14 +7,12 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> Summary List</div>
+                <i class="fa fa-align-justify"></i> Furniture Sold</div>
             <div class="card-body">
 
                 <table class="table table-responsive-sm table-bordered table-striped table-sm">
                     <tr>
-                                    <!-- Search Functionality -->
-                      
-                          
+                                    <!-- Search Functionality -->                        
                                 <form class="card card-sm">
                                     <div class="card-body row no-gytters align-items-center">
                                         <div class="col">
@@ -27,10 +25,11 @@
                                 </form>
                          
                   
-                    </tr>
+                    </tr> 
                     <tr>
-                       <th>DATE: {{ date_recorded}}</th>
-                       <th>OVERAL INCOME: {{overall_profit|floatformat:2 }} </th> 
+                       <th>DATE: {{ work_date}}</th>
+                       <th>TOTAL SALES: {{ furniture_sold_total.Total|floatformat:2 }} </th>
+                       <th>TOTAL PROFIT: {{ furniture_sold_total_profit|floatformat:2 }} </th> 
                     </tr>
                 
                 </table>
@@ -38,42 +37,31 @@
                 <table class="table table-responsive-sm table-bordered table-striped table-sm">
                     <thead>
                         <tr>
-                            
+                            <th>SL</th>
                             <th>Description</th>
+                            <th>Quantity</th>
                             <th>Amount</th>
-                        
+                            <th>Profit/balance</th>
+                            <th>Date Sold</th>
                         </tr>
                     </thead>
                     <tbody>
-                            
-
+                        {% for furniture_sold in furnitureitempurchase %}
                             <tr>
-                                <td>TOTAL MACHINE WORK</td>
-                                <td>{{ machine_works_total|floatformat:2 }}</td>                           
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ furniture_sold.furniture }}</td>
+                                <td>{{ furniture_sold.quantity }}</td>
+                                <td>{{ furniture_sold.total_amount }}</td>
+                                <td>{{furniture_sold.profit}}
+                                <td>{{ furniture_sold.date }}</td>
+                               
                             </tr>
-                            <tr>
-                                <td>TOTAL WOOD PROFIT</td>
-                                <td>{{wood_sales_profit|floatformat:2 }}</td>                           
-                            </tr>
-                            <tr>
-                                <td>TOTAL FURNITURE INCOME</td>
-                                <td>{{ furniture_sold_profit|floatformat:2 }}</td>                           
-                            </tr>
-                            
-                            <tr>
-                                <td>TOTAL EXPENSES</td>
-                                <td>(-){{ total_expenses|floatformat:2 }}</td>                           
-                            </tr>
-
-                            <tr>
-                                <td>TOTAL SALARY</td>
-                                <td>(-){{ salary_total|floatformat:2 }}</td>                           
-                            </tr>
-                         
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-{%endblock%}
+
+{% endblock %}

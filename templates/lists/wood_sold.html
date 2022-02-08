@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Summary {% endblock %}
+{% block title %} Wood Sold {% endblock %}
 
 {% block content %}
 
@@ -7,7 +7,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> Summary List</div>
+                <i class="fa fa-align-justify"></i> Wood Sold</div>
             <div class="card-body">
 
                 <table class="table table-responsive-sm table-bordered table-striped table-sm">
@@ -27,10 +27,12 @@
                                 </form>
                          
                   
-                    </tr>
+                    </tr>               
+                    </div>   
                     <tr>
-                       <th>DATE: {{ date_recorded}}</th>
-                       <th>OVERAL INCOME: {{overall_profit|floatformat:2 }} </th> 
+                       <th>DATE: {{ work_date}}</th>
+                       <th>TOTAL SALES: {{ total_sales|floatformat:2 }} </th> 
+                       <th>TOTAL PROFIT: {{ total|floatformat:2 }} </th> 
                     </tr>
                 
                 </table>
@@ -38,42 +40,32 @@
                 <table class="table table-responsive-sm table-bordered table-striped table-sm">
                     <thead>
                         <tr>
-                            
-                            <th>Description</th>
-                            <th>Amount</th>
-                        
+                            <th>SL</th>
+                            <th>Date</th>
+                            <th>Wood Description</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Profit</th>
+                          
                         </tr>
                     </thead>
                     <tbody>
-                            
-
+                        {% for woodsold in woodsale %}
                             <tr>
-                                <td>TOTAL MACHINE WORK</td>
-                                <td>{{ machine_works_total|floatformat:2 }}</td>                           
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ woodsold.woodsale.date_sold }}</td>
+                                <td>{{ woodsold.woodfrombush }} </td>
+                                <td>{{ woodsold.quantity }}</td>
+                                <td>{{woodsold.total_amount }}</td>
+                                <td>{{woodsold.total_profit}}</td>
+                                
                             </tr>
-                            <tr>
-                                <td>TOTAL WOOD PROFIT</td>
-                                <td>{{wood_sales_profit|floatformat:2 }}</td>                           
-                            </tr>
-                            <tr>
-                                <td>TOTAL FURNITURE INCOME</td>
-                                <td>{{ furniture_sold_profit|floatformat:2 }}</td>                           
-                            </tr>
-                            
-                            <tr>
-                                <td>TOTAL EXPENSES</td>
-                                <td>(-){{ total_expenses|floatformat:2 }}</td>                           
-                            </tr>
-
-                            <tr>
-                                <td>TOTAL SALARY</td>
-                                <td>(-){{ salary_total|floatformat:2 }}</td>                           
-                            </tr>
-                         
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-{%endblock%}
+
+{% endblock %}

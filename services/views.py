@@ -174,45 +174,50 @@ def woodfrombush (request):
 @login_required
 def wood_from_bush_list(request):
     wood_from_bushs = WoodFromBush.objects.all()
-    if request.method == "POST":
-        form = WoodFromBushForms(data= request.POST, files=request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Wood from Bush Saved Successfully")
-            return redirect("/woodfrombush/")
-        else: 
-            messages.warning(request, "Form data Error, check and try again")
-    else: 
-        form = WoodFromBushForms()
+    total_wood_price = 0
+    balance = 1
+    wood_from_bushs_total=0
+    # if request.method == "POST":
+    #     form = WoodFromBushForms(data= request.POST, files=request.FILES)
+    #     if form.is_valid():
+    #         form.save()
+    #         form.profit_margin = form.sell_price - form.price
+    #         form.save()
+    #         messages.success(request, "Wood from Bush Saved Successfully")
+    #         return redirect("/woodfrombush/")
+    #     else: 
+    #         messages.warning(request, "Form data Error, check and try again")
+    # else: 
+    #     form = WoodFromBushForms()
 
-    total_wood_price = 1
+    # #search codes
+    # work_date = request.GET.get('work_date')
+    # if work_date is not '' and work_date != None:
+    #     wood_from_bushs = wood_from_bushs.filter(date_purchased__icontains = work_date)
+    #     for i in wood_from_bushs:    
+    #         wood_from_bushs_total += i.total_wood_price 
+    # else: 
+       
     for i in wood_from_bushs:    
-        total_wood_price = i.price * i.quantity
-    #search codes
-    work_date = request.GET.get('work_date')
-    if work_date is not '' and work_date != None:
-        wood_from_bushs = wood_from_bushs.filter(date_purchased__icontains = work_date)
-        wood_from_bushs_total = wood_from_bushs.aggregate(Total = Sum('price'))
-    else: 
-        wood_from_bushs_total = wood_from_bushs.aggregate (Total = Sum('price'))
-  
+        wood_from_bushs_total += i.total_wood_price 
 
     woods = WoodFromBush.objects.all()
-    wood_json = [{'id': wood.id, 'description':wood.description, 'quantity':wood.quantity, 'price':float(wood.price)} for wood in woods]
+    wood_json = [{'id': wood.id, 'description':wood.description, 'quantity':wood.quantity, 'price':float(wood.sell_price)} for wood in woods]
 
     paginator = Paginator(wood_from_bushs, 20)
     page = request.GET.get('page')
     paged_wood_from_bush = paginator.get_page(page)
     context = {
         "woodfrombushs": paged_wood_from_bush,
-        "wood_from_bushs_total":wood_from_bushs_total,
+        "wood_from_bushs_total": wood_from_bushs_total,
         "total_wood_price":total_wood_price,
-        "form" : form,
+        # "form" : form,
         "woods":json.dumps(wood_json),
         "WoodSaleForm":WoodSaleForm(),
         "WoodItemSaleForm": WoodItemSaleForm(),
         "wood_form":WoodFromBushForms(),
         "WPurchaseForm": WPurchaseForm(),
+        "balance":balance,
     }
     return render(request, "lists/wood_from_bush_list.html", context)
 
@@ -259,7 +264,30 @@ def woodsales (request):
         form = WPurchaseForm()
     # return render(request, "add_wood_sale.html", {})
     return redirect('/woodfrombush/list/')
+@login_required
+def wood_sold(request):
+    woodsale = WoodItemSale.objects.all()
+    work_date = request.GET.get("date_recorded")
+    total_sales = 0
+    total = 0
+    if work_date != '' and work_date != None:
+        woodsale.filter(date_sold__icontains = work_date)
+        for i in woodsale:
+            total += i.total_profit
+            total_sales += i.total_amount
+    else:
+        work_date = "All Days"
+        for i in woodsale:
+            total += i.total_profit
+            total_sales += i.total_amount
 
+    context = {
+        "total": total,
+       "woodsale": woodsale,
+       "work_date": work_date,
+       "total_sales" : total_sales,
+    }
+    return render(request, 'lists/wood_sold.html', context)
 
 @login_required
 def operator(request):
@@ -332,7 +360,7 @@ def furniture_list (request):
    
     for i in furniture_list:
         total_expenses = i.unit_expenses_on_work * i.quantity
-        total_price = i.unit_price * i.quantity
+        total_price 
         balance = total_price - total_expenses
 
     furnitures = FurnitureInventory.objects.all()
@@ -344,8 +372,6 @@ def furniture_list (request):
     paged_furniture = paginator.get_page(page)
     context = {
         "furniture_list": paged_furniture,
-        "total_expenses": total_expenses,
-        "total_price": total_price,
         "balance": balance,
         "FurniturePurchaseForm": FurniturePurchaseForm(),
         "furnituresupplyform":FurnitureSupplyForm(),
@@ -419,40 +445,115 @@ def add_supply(request):
     return redirect('/furniture/list/')
 
 @login_required
+def furniture_supply_list(request):
+    furnitureitempurchase = FurnitureSupply.objects.all()
+
+    work_date = request.GET.get('date_recorded')
+    if work_date is not '' and work_date is not None:
+        furnitureitempurchase= furnitureitempurchase.filter(date_recorded__icontains = work_date)
+       
+    else:
+        work_date = "Every Date"
+        
+    context = {
+ 
+       "work_date": work_date,
+       "furnitureitempurchase":furnitureitempurchase,
+    }
+
+    return render(request, 'lists/furniture_supplied.html',context)
+@login_required
+def furniture_sold(request):
+    furniturepurchase = FurniturePurchase.objects.all()
+    furnitureitempurchase = FurnitureItemPurchase.objects.all()
+    furniture_sold_total_profit = 0
+    
+    work_date = request.GET.get('date_recorded')
+    if work_date is not '' and work_date is not None:
+        furnitureitempurchase= furnitureitempurchase.filter(date__icontains = work_date)
+        furniture_sold_total = furnitureitempurchase.aggregate(Total = Sum('total_amount',))
+        for i in furnitureitempurchase:
+            furniture_sold_total_profit = i.profit
+    else:
+        work_date = "Every Date"
+        furniture_sold_total = furnitureitempurchase.aggregate(Total = Sum('total_amount',)) 
+        for i in furnitureitempurchase:
+            furniture_sold_total_profit = i.profit          
+    context={
+       "furniture_sold_total": furniture_sold_total,
+       "furniture_sold_total_profit":furniture_sold_total_profit,
+       "work_date": work_date,
+       "furnitureitempurchase":furnitureitempurchase,
+    }
+    return render(request, 'lists/furniture_sold.html',context)
+
+
+@login_required
 def Summary(request):
  
     machine_works = MachineWork.objects.all()
     generalexpenses = GeneralExpence.objects.all()
     salarys = Salary.objects.all()
-
-    
-    #furniture_list = FurnitureInventory.objects.all()
-    #wood_from_bushs = WoodFromBush.objects.all()
-
+    furniture_sales = FurnitureItemPurchase.objects.all()
+    wood_sales = WoodItemSale.objects.all()
+    wood_sales_profit = 0
+    machine_works_total =0
+    furniture_sold_profit = 0
+    total_expenses = 0
+    salary_total =0
+    overall_profit =0
      #search codes
     work_date = request.GET.get('date_recorded')
     if work_date is not '' and work_date is not None:
         machine_works = machine_works.filter(date_recorded__icontains = work_date)
-        machine_works_total = machine_works.aggregate(Total = Sum('amount',))
-
+        for i in machine_works:
+            machine_works_total += i.amount
+            
         generalexpenses = generalexpenses.filter(date_recorded__icontains = work_date)
-        total_expenses = generalexpenses.aggregate(Total = Sum('amount'))
+        for i in generalexpenses:
+            total_expenses += i.amount
 
-        salarys = salarys.filter(date_paid__icontains = work_date)
-        salary_total = salarys.aggregate(Total = Sum('amount_paid',))
+        salarys = salarys.filter(date_paid__icontains = work_date)        
+        for i in salarys:
+            salary_total += i.amount_paid
 
+        furniture_sales = furniture_sales.filter(date__icontains = work_date)
+        for i in furniture_sales:
+            furniture_sold_profit += i.profit
+
+        wood_sales = wood_sales.filter(date_sold__icontains = work_date)
+        for i in wood_sales:
+            wood_sales_profit += i.total_profit
+
+        overall_profit = wood_sales_profit + machine_works_total+ furniture_sold_profit - salary_total - total_expenses
     else:
-        machine_works_total = MachineWork.objects.aggregate(Total = Sum('amount',)) 
-
-        total_expenses = generalexpenses.aggregate(Total = Sum('amount'))
         work_date = "Every Date"
+        for i in machine_works:
+            machine_works_total += i.amount
 
-        salary_total = salarys.aggregate(Total = Sum('amount_paid',)) 
-        #overall_income = machine_works_total - total_expenses - salary_total
+        for i in generalexpenses:
+            total_expenses += i.amount  
+
+        for i in salarys:
+            salary_total += i.amount_paid
+
+        for i in furniture_sales:
+            furniture_sold_profit += i.profit 
+
+        for i in wood_sales:
+            wood_sales_profit += i.total_profit
+
+        #OVERAL INCOME
+        overall_profit = wood_sales_profit + furniture_sold_profit - total_expenses 
+
     context = {
         "machine_works_total" :machine_works_total,
         "total_expenses": total_expenses,
         "salary_total": salary_total,
-       # "overall_income": overall_income,
+        "furniture_sold_profit": furniture_sold_profit,
+        "work_recorded": work_date,
+        # "overall_income": overall_income,
+        "wood_sales_profit":wood_sales_profit,
+        "overall_profit":overall_profit,
     }
     return render(request, 'summary.html',context)

@@ -104,10 +104,21 @@ class WoodFromBush(models.Model):
     quantity = models.IntegerField()
     price = models.DecimalField(decimal_places=2, max_digits=9 )
     sell_price = models.DecimalField(decimal_places=2, max_digits=9 )
+    # profit_margin = models.DecimalField(decimal_places=2, max_digits=9, null = True, blank = True )
     date_purchased = models.DateTimeField(auto_now_add= True)
     def __str__(self):
         return self.description + " || " + str(self.quantity)
 
+    @property
+    def total_wood_price(self):
+        return self.price * self.quantity
+    @property 
+    def profit(self):
+        return  int(self.sell_price) - int(self.price)
+    # @property
+    # def total_wood(self):
+    #     for
+    #     return
 # class Log(models.Model):
 #     wood_from_bush = models.ForeignKey(WoodFromBush, on_delete=models.CASCADE)
 #     log_type = models.CharField(choices=LOG_CHOICES, max_length=30)
@@ -121,13 +132,19 @@ class WoodSale(models.Model):
     date_sold = models.DateTimeField(auto_now_add= True)
     # def __str__(self):
     #     return self.total_price
+   
 
 class WoodItemSale(models.Model):
     woodfrombush = models.ForeignKey(WoodFromBush, on_delete= models.CASCADE)
     woodsale = models.ForeignKey(WoodSale, verbose_name=("woodsale"), on_delete=models.CASCADE)
     quantity = models.IntegerField()
     total_amount = models.DecimalField(decimal_places=2, max_digits=9)
-  
+    date_sold = models.DateTimeField(auto_now_add= True)
+    
+    @property 
+    def total_profit(self):
+        return  self.woodfrombush.profit * self.quantity
+    
     def __str__(self):
         return self.woodfrombush.description
 
@@ -136,6 +153,8 @@ class WoodItemSale(models.Model):
         self.woodfrombush.save()
         super(WoodItemSale, self).save(*args, **kwargs)
 
+   
+        
 class Salary(models.Model):
     staff = models.ForeignKey(Staff, on_delete=CASCADE)
     amount_paid = models.DecimalField(decimal_places=2, max_digits= 9)
@@ -155,7 +174,18 @@ class FurnitureInventory (models.Model):
     date_made = models.DateTimeField(auto_now_add= True)
 
     def __str__(self):
-        return self.item_name + " " + str(self.quantity)
+        return self.item_name + " " + str(self.description)
+    
+    @property
+    def total_cost(self):
+        return self.quantity * self.unit_price
+    
+    @property
+    def total_expenses(self):
+        return self.quantity * self.unit_expenses_on_work
+    @property
+    def balance(self):
+        return  self.total_cost - self.total_expenses
 
 class FurniturePurchase (models.Model):
     total_purchase = models.DecimalField(decimal_places=2, max_digits=9, default=0.0)
@@ -173,18 +203,21 @@ class FurnitureItemPurchase (models.Model):
     quantity = models.PositiveIntegerField()
     total_amount = models.DecimalField(decimal_places=2, max_digits=10)
     date = models.DateTimeField(auto_now_add=True)
-
+    @property
+    def profit(self):
+        return int(self.furniture.unit_price) - int(self.furniture.unit_expenses_on_work)
     class Meta:
         ordering = ('-date',)
-
     def save(self, *args, **kwargs):
         self.furniture.quantity = int(self.furniture.quantity) - int(self.quantity)
         self.furniture.save()
         super(FurnitureItemPurchase, self).save(*args, **kwargs)
-
+    
+    
 class FurnitureSupply(models.Model):
     furniture = models.ForeignKey(FurnitureInventory,  related_name="furnituresupply", on_delete=CASCADE)
     quantity = models.PositiveIntegerField()
+    date_recorded = models.DateTimeField(auto_now_add = True)
 
     def save(self, *args, **kwargs):
         self.furniture.quantity = self.furniture.quantity + self.quantity

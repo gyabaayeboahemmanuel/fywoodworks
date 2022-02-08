@@ -28,9 +28,14 @@
                          
                   
                     </tr>
+                    <div class="row">
+                        <div class="col-10 pt-2 mb-2 text-center d-flex flex-row justify-content-between">
+                            <a href="{% url 'services:salary' %}" id="purchase-link" class="btn btn-lg btn-warning">Pay Salary</a>
+                        </div>
+                    </div>
                     <tr>
-                       <th>DATE: {{ date_recorded}}</th>
-                       <th>TOTAL: {{ total_salary.Total|floatformat:2 }} </th> 
+                       <th>DATE: {{ work_date}}</th>
+                       <th>TOTAL: {{ salary_total.Total|floatformat:2 }} </th> 
                     </tr>
                 
                 </table>
@@ -56,9 +61,9 @@
                                     <a href="">
                                         <button type="button" class="btn btn-info"><i class="fa fa-edit"></i></button>
                                     </a>
-                                    <a href="{% url 'services:delete_salary' salary.id%}">
+                                    {% comment %} <a href="{% url 'services:delete_salary' salary.id%}">
                                         <button type="button" class="btn btn-danger">X</button>
-                                    </a>
+                                    </a> {% endcomment %}
                                 </td>
                             </tr>
                         {% endfor %}

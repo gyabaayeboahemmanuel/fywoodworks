@@ -26,7 +26,7 @@
                                 </form>
 
                                 <div class="row">
-                                    <div class="col-10 pt-2 mb-2 text-center d-flex flex-row justify-content-between">
+                                    <div class="col-8 pt-2 mb-2 text-center d-flex flex-row justify-content-between">
                                         <!--<h4 class="display-4">PRODUCTS</h2>-->
                                         <a href="#" id="purchase-link" class="btn btn-lg btn-warning">New Purchase</a>
                                     </div>
@@ -34,7 +34,13 @@
                             
                                     <div class="col-2 pt-2 mb-2 text-center d-flex flex-row justify-content-between">
                                         <!--<h4 class="display-4">PRODUCTS</h2>-->
-                                            <a href="#" class="link btn btn-danger" id="supply-link" > Add Supply
+                                            <a href="{% url 'services:furniture_inventory'%}" class="link btn btn-warning" id="supply-link" > Add Furniture
+                                            </a>
+                                    </div>
+
+                                    <div class="col-2 pt-2 mb-2 text-center d-flex flex-row justify-content-between">
+                                        <!--<h4 class="display-4">PRODUCTS</h2>-->
+                                            <a href="{%url 'services:add_supply'%}" class="link btn btn-danger" id="supply-link" > Add Supply
                                             </a>
                                     </div>
                                     
@@ -48,7 +54,7 @@
                             <th>SL</th>
                             <th>Item Name</th>
                             <th>Description</th>
-                            <th>Quantity</th>
+                            <th>Quantity Available</th>
                             <th>Unit Price</th>
                             <th>Total Price</th>
                             <th>Unit Work Expense</th>
@@ -64,19 +70,15 @@
                                 <td>{{ furnitureinventory.description }}</td>
                                 <td>{{ furnitureinventory.quantity }}</td>
                                 <td>{{ furnitureinventory.unit_price }}</td>
-                                <td>{{ total_price}}</td>
+                                <td>{{ furnitureinventory.total_cost }} </td>
                                 <td>{{ furnitureinventory.unit_expenses_on_work }}</td>
-                                <td>{{ total_expenses }}</td>
-                                <td>{{ balance}}</td>
+                                <td>{{ furnitureinventory.total_expenses }}</td>
+                                <td>{{ furnitureinventory.balance}}</td>
                                 
                                 <td>
                                     <a href="">
                                         <button type="button" class="btn btn-info"><i class="fa fa-edit"></i></button>
-                                    </a>
-                                    <a href="#' furnitureinventory.id %} ">
-                                        <button type="submit" class="btn btn-danger">X</button>
-                                    </a>
-                                    
+                                    </a>                                    
                                 </td>
                             </tr>
                         {% endfor %}
@@ -129,14 +131,15 @@
 
 
 <div class="myoverlay full-screen" id="purchase-view">
-    <i class="myclose btn btn-danger">X</i>
+   
     <div class="container">
         {% include 'add_purchase.html' %}
     </div>
+    <i class="myclose btn btn-danger" style="margin-top:80px;">X</i>
 </div>
 
 <div class="myoverlay full-screen" id="supply-view">
-    <i class="myclose btn btn-danger">X</i>
+    <i class="myclose btn btn-danger" style="margin-top:80px;">X</i>
     <div class="container">
         {% include 'add_furnituresupply.html' %}
     </div>

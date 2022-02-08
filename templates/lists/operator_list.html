@@ -10,6 +10,11 @@
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Operators List</div>
             <div class="card-body">
+                <div class="row">
+                    <div class="col-10 pt-2 mb-2 text-center d-flex flex-row justify-content-between">
+                        <a href="{% url 'services:operator' %}" id="purchase-link" class="btn btn-lg btn-warning">Add Operator</a>
+                    </div>
+                </div>  
                 <table class="table table-responsive-sm table-bordered table-striped table-sm">
                     <thead>
                         <tr>
@@ -32,9 +37,7 @@
                                         <a href="#">
                                             <button type="button" class="btn btn-info"><i class="fa fa-edit"></i></button>
                                         </a>
-                                        <a href="{%url 'services:delete_operator' operator.id %}">
-                                            <button type="button" class="btn btn-danger">X</button>
-                                        </a>
+                                        
                                     </td>
                                 </tr>
                             {% endfor %}

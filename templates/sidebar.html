@@ -4,10 +4,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'services:index' %}"><i class="icon-speedometer"></i> Dashboard</a>
             </li>
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#">
+            <li class="nav-item ">
+                <a class="nav-link " href="{% url 'services:machine_work_list' %}">
                     <i class="nav-icon icon-settings"></i> Machine Works</a>
-                <ul class="nav-dropdown-items">
+                {% comment %} <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'services:machine_work_list' %}">
                             <i class="nav-icon icon-puzzle"></i> Machine Work List</a>
@@ -16,12 +16,12 @@
                         <a class="nav-link" href="{% url 'services:machinework' %}">
                             <i class="icon-plus"></i> Add Machine Work</a>
                     </li>
-                </ul>
+                </ul> {% endcomment %}
             </li>
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'services:general_expenses_list' %}">
                     <i class="nav-icon icon-screen-tablet"></i> General Expenses</a>
-                <ul class="nav-dropdown-items">
+                {% comment %} <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'services:general_expenses_list' %}">
                             <i class="nav-icon icon-puzzle"></i> Expenses List</a>
@@ -30,12 +30,12 @@
                         <a class="nav-link" href="{% url 'services:generalexpenses' %}">
                             <i class="icon-plus"></i> Add Expenses</a>
                     </li>
-                </ul>
+                </ul> {% endcomment %}
             </li>
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#">
+            <li class="nav-item ">
+                <a class="nav-link " href="{% url 'services:salary_list' %}">
                     <i class="nav-icon icon-wallet"></i> Salary</a>
-                <ul class="nav-dropdown-items">
+                {% comment %} <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'services:salary_list' %}">
                             <i class="nav-icon icon-puzzle"></i> Salary List</a>
@@ -44,13 +44,13 @@
                         <a class="nav-link" href="{% url 'services:salary' %}">
                             <i class="nav-icon icon-puzzle"></i> Pay New Salary</a>
                     </li>
-                </ul>
+                </ul> {% endcomment %}
             </li>
 
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#">
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'services:staff_list' %}">
                     <i class="nav-icon icon-user"></i>Staff</a>
-                <ul class="nav-dropdown-items">
+                {% comment %} <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'services:staff_list' %}">
                             <i class="nav-icon icon-people"></i> Staff List</a>
@@ -59,13 +59,13 @@
                         <a class="nav-link" href="{% url 'services:register' %}">
                             <i class="icon-user-follow"></i>  Add Staff</a>
                     </li>
-                </ul>
+                </ul> {% endcomment %}
             </li>
 
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#">
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'services:operator_list' %}">
                     <i class="nav-icon icon-people"></i> Operators</a>
-                <ul class="nav-dropdown-items">
+                {% comment %} <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'services:operator_list' %}">
                             <i class="nav-icon icon-people"></i> Operators List</a>
@@ -74,57 +74,63 @@
                         <a class="nav-link" href="{% url 'services:operator' %}">
                             <i class="icon-user-follow"></i> Add Operator</a>
                     </li>
-                </ul>
+                </ul> {% endcomment %}
             </li>
 
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#">
+                <a class="nav-link nav-dropdown-toggle" href="{% url 'services:furniture_list' %}">
                     <i class="nav-icon icon-layers "></i>Furniture Inventory</a>
                 <ul class="nav-dropdown-items">
-                    <li class="nav-item">
+                    {% comment %} <li class="nav-item">
                         <a class="nav-link" href="{% url 'services:furniture_list' %}">
-                            <i class="nav-icon icon-login"></i><i class="fas fa-couch"></i>Furniture Stock List</a>
-                    </li>
+                            <i class="nav-icon icon-login"></i>Furniture Stock List</a>
+                    </li> {% endcomment %}
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'services:furniture_list' %}">
-                            <i class="nav-icon icon-login"></i><i class="fas fa-couch"></i>Furniture Purchases</a>
+                        <a class="nav-link" href="{% url 'services:furniture_sold' %}">
+                            <i class="nav-icon icon-login"></i>Furniture Purchases</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"href="{%url 'services:furniture_inventory'%}">
-                            <i class="icon-plus"></i>Furniture Supply</a>
+                        <a class="nav-link"href="{%url 'services:furniture_supply_list'%}">
+                            <i class="nav-icon icon-login"></i>Furniture Supply</a>
                     </li>
 
-                    <li class="nav-item">
+                    {% comment %} <li class="nav-item">
                         <a class="nav-link"href="{%url 'services:furniture_inventory'%}">
                             <i class="icon-plus"></i>Add Furniture</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"href="{%url 'services:furniture_inventory'%}">
                             <i class="icon-plus"></i>Add Supply</a>
-                    </li>
+                    </li> {% endcomment %}
                     
                 </ul>
             </li>
             
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#">
+                <a class="nav-link" href="{% url 'services:wood_from_bush_list' %}">
                     <i class="icon-control-pause"></i> Wood From Bush</a>
                 <ul class="nav-dropdown-items">
-                    <li class="nav-item">
+                    {% comment %} <li class="nav-item">
                         <a class="nav-link" href="{% url 'services:wood_from_bush_list' %}">
-                            <i class="nav-icon icon-puzzle"></i> Wood List</a>
-                    </li>
+                            <i class="nav-icon icon-puzzle"></i>Wood List</a>
+                    </li> {% endcomment %}
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'services:wood_from_bush_list' %}">
-                            <i class="nav-icon icon-puzzle"></i> Wood Sales</a>
+                        <a class="nav-link" href="{% url 'services:wood_sold' %}">
+                            <i class="nav-icon icon-puzzle"></i>Wood Sales</a>
                     </li>
-                    <li class="nav-item">
+                    {% comment %} <li class="nav-item">
                         <a class="nav-link" href="{% url 'services:woodfrombush' %}">
                             <i class="icon-plus"></i> Add Wood From Bush</a>
-                    </li>
+                    </li> {% endcomment %}
                 </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'services:summary' %}">
+                    <i class="nav-icon icon-screen-tablet"></i> Summary</a>
+             
             </li>
         </ul>
     </nav>

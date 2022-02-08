@@ -4,13 +4,14 @@ from services.models import MachineWork, Salary
 from . import views
 from accounts.views import *
 from django.contrib.auth.views import LoginView, LogoutView
-
+from django.contrib import admin
 app_name = "services"
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
+    path('admin/', admin.site.urls, name="admin"),
 
     path('salary/pay/', views.salary, name = "salary"),
     path('salary/list/', views.salary_list, name = "salary_list"),
@@ -29,6 +30,7 @@ urlpatterns = [
     path('woodfrombush/list/', views.wood_from_bush_list, name="wood_from_bush_list"),
     path('woodfrombush/<int:id>/delete/', views.delete_wood_from_bush, name = "delete_wood_from_bush"),
     path('add-woodpurchase', views.woodsales, name="woodsales"),
+    path('wood-sold', views.wood_sold, name = "wood_sold"),
 
     path('operator/add/', views.operator, name="operator"),
     path('operator/list/', views.operator_list, name="operator_list"),
@@ -39,6 +41,8 @@ urlpatterns = [
     path('furniture/<int:id>/delete/', views.delete_furniture_view, name = "delete_furniture_view"),
     path('add-purchase/', views.add_furniture_purchase, name="add_furniture_purchase"),
     path('add-supply/', views.add_supply, name="add_supply"),
+    path('furniture-sold', views.furniture_sold, name = "furniture_sold"),
+    path('furnituresupply/list', views.furniture_supply_list, name="furniture_supply_list"),
 
     path('staff/add/', register, name="register"),
     path('staff/<int:id>/delete/', delete_staff, name="delete_staff"),

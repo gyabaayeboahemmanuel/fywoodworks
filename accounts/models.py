@@ -18,4 +18,4 @@ class Staff(models.Model):
 
 
     def __str__(self) -> str:
-        return self.user.first_name  + self.user.last_name
+        return self.user.first_name + " "+ self.user.last_name
